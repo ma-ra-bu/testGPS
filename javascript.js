@@ -1,5 +1,8 @@
 var longitude, latitude;
 
+var getError = function(error){
+   alert(error.message);
+};
 
 var showPosition = function(position){
   longitude = position.coords.longitude;
@@ -12,4 +15,4 @@ var showPosition = function(position){
 };
 
 
-navigator.geolocation.getCurrentPosition(showPosition);
+navigator.geolocation.getCurrentPosition(showPosition, getError,{enableHighAccuracy: true,timeout : 5000});
