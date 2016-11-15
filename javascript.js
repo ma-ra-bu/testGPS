@@ -2,7 +2,7 @@ var longitude, latitude;
 
 
 var showPosition = function(position){
-  longitude = postion.coords.longitude;
+  longitude = position.coords.longitude;
   latitude = position.coords.latitude;
   window.alert(longitude+' - '+latitude);
   //document.querySelector('#longitude td').innerHTML(longitude);
