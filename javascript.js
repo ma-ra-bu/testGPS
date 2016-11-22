@@ -1,18 +1,13 @@
-var longitude, latitude;
+var x = document.getElementById("demo");
 
-var getError = function(error){
-   alert(error.message);
-};
-
-var showPosition = function(position){
-  longitude = position.coords.longitude;
-  latitude = position.coords.latitude;
-  //window.alert(longitude+' - '+latitude);
-  td_lot=document.getElementById("longitude");
-  td_lat=document.getElementById("latitude");
-  td_lot.innerHTML=longitude;
-  td_lat.innerHTML=latitude;
-};
-
-
-navigator.geolocation.getCurrentPosition(showPosition, getError,{enableHighAccuracy: true,timeout : 5000});
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";}
+    }
+    
+function showPosition(position) {
+    x.innerHTML="Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
