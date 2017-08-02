@@ -6,10 +6,10 @@
         id        = "ch.danielengler.testGPS"
         version   = "1.0.1">
 
-    <name>testGPS</name>
+    <name>EnGPSTracker</name>
 
     <description>
-        ein kleines Programm zum Testen der GPS-Funktionalitaet
+        Zeichnet Route, Distanz, Hoehenunterschied und Geschwindigkeit auf
     </description>
 
     <author href="http://www.danielengler.ch" email="daniel.engler@gyminterlaken.ch">
