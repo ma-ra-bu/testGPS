@@ -1,11 +1,3 @@
-/* globals console,document,window,cordova */
-document.addEventListener('deviceready', onDeviceReady, false);
-var logOb;
-function fail(e) {
-	console.log("FileSystem Error");
-	console.dir(e);
-}
-
 var x = document.getElementById("demo");
 var btn = document.getElementById("btnStart");
 var watchID = null;
@@ -24,13 +16,6 @@ function startGPS() {
     startZeit = new Date();
 }
 
-function stopGPS() {
-	navigator.geolocation.clearWatch(watchID);
-	x.innerHTML = "Distanz (km): "+distanz+"<br>Zeit (min:sec): "+millisecondsToTime(jetzt-startZeit)+
-	"<br> Duchschnittsgeschwindigkeit (km/h): "+Math.floor(distanz/(jetzt-startZeit)/3600000);
-	btn.disabled = false;
-}
-
 function haversine_distance(coords1, coords2) {
 
      function toRad(x) {
@@ -47,31 +32,7 @@ function haversine_distance(coords1, coords2) {
 
   return (12742 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)))/0.62137;
 }
-
-
-function millisecondsToTime(milli)
-{
-      var seconds = Math.floor((milli / 1000) % 60);
-      var minutes = Math.floor((milli / (60 * 1000)) % 60);
-
-      return minutes + ":" + seconds;
-}
-
-
-
-function onDeviceReady() {
-	
-	window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
-		console.log("got main dir",dir);
-		dir.getFile("log.txt", {create:true}, function(file) {
-			console.log("got the file", file);
-			logOb = file;
-			writeLog("App started");			
-		});
-	});	
-	
-
-	    
+    
 function showPosition(position) {
 	 jetzt = new Date();
 	 if (save_coords != null){
@@ -88,21 +49,23 @@ function showPosition(position) {
           'Datum: '             + jetzt.toLocaleString('de-DE')     + '<br>' +
           'Zeit: '              + millisecondsToTime(jetzt-startZeit)+ '<br>' +
           'Diszanz (km): '      + distanz;
-    writeLog(position.coords.latitude+"\t"+position.coords.longitude+"\t");
 }
 
+
+
+function millisecondsToTime(milli)
+{
+      var seconds = Math.floor((milli / 1000) % 60);
+      var minutes = Math.floor((milli / (60 * 1000)) % 60);
+
+      return minutes + ":" + seconds;
 }
 
-function writeLog(str) {
-	if(!logOb) return;
-	var log = str + (new Date()) + "\n";
-	console.log("going to log "+log);
-	logOb.createWriter(function(fileWriter) {
-		
-		fileWriter.seek(fileWriter.length);
-		
-		var blob = new Blob([log], {type:'text/plain'});
-		fileWriter.write(blob);
-		console.log("ok, in theory i worked");
-	}, fail);
+
+
+function stopGPS() {
+	navigator.geolocation.clearWatch(watchID);
+	x.innerHTML = "Distanz (km): "+distanz+"<br>Zeit (min:sec): "+millisecondsToTime(jetzt-startZeit)+
+	"<br> Duchschnittsgeschwindigkeit (km/h): "+Math.floor(distanz/(jetzt-startZeit)/3600000);
+	btn.disabled = false;
 }
