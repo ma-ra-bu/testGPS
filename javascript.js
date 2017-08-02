@@ -66,6 +66,6 @@ function millisecondsToTime(milli)
 function stopGPS() {
 	navigator.geolocation.clearWatch(watchID);
 	x.innerHTML = "Distanz (km): "+distanz+"<br>Zeit (min:sec): "+millisecondsToTime(jetzt-startZeit)+
-	"<br> Duchschnittsgeschwindigkeit (km/h): "+Math.floor(distanz/(jetzt-startZeit)/3600000);
+	"<br> Duchschnittsgeschwindigkeit (km/h): "+Math.floor(distanz/((jetzt-startZeit)/3600000));
 	btn.disabled = false;
 }
